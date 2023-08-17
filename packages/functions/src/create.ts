@@ -1,5 +1,5 @@
 import { Table } from "sst/node/table";
-import crypto from "crypto";
+import { v4 as uuidv4 } from 'uuid';
 import handler from "@spark/core/handler";
 import dynamoDb from "@spark/core/dynamodb";
 
@@ -10,7 +10,7 @@ export const main = handler(async (event: any) => {
     Item: {
       // The attributes of the item to be created
       userId: "123", // The id of the author
-      noteId: crypto.randomUUID(), // A unique uuid
+      noteId: uuidv4(), // A unique uuid
       content: data.content, // Parsed from request body
       attachment: data.attachment, // Parsed from request body
       createdAt: Date.now(), // Current Unix timestamp
