@@ -2,7 +2,11 @@ import { Table } from "sst/node/table";
 import handler from "@spark/core/handler";
 import dynamoDb from "@spark/core/dynamodb";
 
-export const main = handler(async (event) => {
+export const main = async (event) => {
+  return await update(event);
+};
+
+export const update = async (event) => {
   const data = JSON.parse(event.body);
   const params = {
     TableName: Table.Notes.tableName,
@@ -27,4 +31,4 @@ export const main = handler(async (event) => {
   await dynamoDb.update(params);
 
   return { status: true };
-});
+};

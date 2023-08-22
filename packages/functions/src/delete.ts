@@ -3,6 +3,10 @@ import handler from "@spark/core/handler";
 import dynamoDb from "@spark/core/dynamodb";
 
 export const main = handler(async (event) => {
+  return await deleteNote(event);
+});
+
+export const deleteNote = async (event) => {
   const params = {
     TableName: Table.Notes.tableName,
     // 'Key' defines the partition key and sort key of the item to be removed
@@ -15,4 +19,4 @@ export const main = handler(async (event) => {
   await dynamoDb.delete(params);
 
   return { status: true };
-});
+};

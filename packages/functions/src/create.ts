@@ -1,9 +1,13 @@
 import { Table } from "sst/node/table";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import handler from "@spark/core/handler";
 import dynamoDb from "@spark/core/dynamodb";
 
-export const main = handler(async (event: any) => {
+export const main = handler(async (event) => {
+  return await create(event);
+});
+
+export const create = async (event) => {
   const data = JSON.parse(event.body);
   const params = {
     TableName: Table.Notes.tableName,
@@ -20,4 +24,4 @@ export const main = handler(async (event: any) => {
   await dynamoDb.put(params);
 
   return params.Item;
-});
+};

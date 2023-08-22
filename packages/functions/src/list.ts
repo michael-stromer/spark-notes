@@ -3,6 +3,10 @@ import handler from "@spark/core/handler";
 import dynamoDb from "@spark/core/dynamodb";
 
 export const main = handler(async (event) => {
+  return await list(event);
+});
+
+export const list = async (event) => {
   const params = {
     TableName: Table.Notes.tableName,
     // 'KeyConditionExpression' defines the condition for the query
@@ -13,8 +17,8 @@ export const main = handler(async (event) => {
     // - ':userId': defines 'userId' to be the id of the author
     ExpressionAttributeValues: {
       ":userId": {
-        "S": event.requestContext.authorizer.iam.cognitoIdentity.identityId,
-      }
+        S: event.requestContext.authorizer.iam.cognitoIdentity.identityId,
+      },
     },
   };
 
@@ -22,4 +26,4 @@ export const main = handler(async (event) => {
 
   // Return the matching list of items in response body
   return result.Items;
-});
+};

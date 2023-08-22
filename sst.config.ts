@@ -12,5 +12,5 @@ export default {
   },
   stacks(app) {
     app.stack(StorageStack).stack(ApiStack).stack(AuthStack);
-  }
+  },
 } satisfies SSTConfig;
